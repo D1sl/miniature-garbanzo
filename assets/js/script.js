@@ -14,50 +14,55 @@ var currentTempEl = document.querySelector("#currTemp");
 var currentHumidityEl = document.querySelector("#currHumidity");
 var currentUvEl = document.querySelector("#currUv");
 
-// Fetch latitude and longitude for the search term
-var geoCoordinates = function (city) {
-    var apiUrl = "https://api.openweathermap.org/geo/1.0/direct?q=" + citySearch + "&appid=" + apiKey;
+
+
+var getWeather = function (weatherCity) {
+    var apiUrl = "https://api.openweathermap.org/data/2.5/onecall?lat=" + lat + "&lon=" + lon + "&appid=" + apiKey;
+
     console.log(apiUrl);
-    
+
     fetch(apiUrl)
-    .then(function(response) {
-        if (response.ok) {
-            response.json().then(function(data) {
-                lat = data[0].lat;
-                lon = data[0].lon;
-                console.log(lat)
-                console.log(lon)
-            })
-        }
-    })
-    
+        .then(function (response) {
+            if (response.ok) {
+                response.json().then(function (data) {
+                    console.log(data);
+
+                })
+            }
+        })
+
 }
 
-// var getWeatherData = function () {
-    
-//     // Fetch data from API
-    
-//     fetch(apiUrl)
-//     .then(function (response) {
-//         // If request was successful
-//         if (response.ok) {
-//             response.json().then(function (data) {
-//                 console.log(data);
 
-//                 currentCityNameEl.textContent = data.name;
-                
-//                 currentTempEl.textContent = data.main.temp;
+// Fetch latitude and longitude for the search term
+var geoCoordinates = function () {
+    var apiUrl = "https://api.openweathermap.org/geo/1.0/direct?q=" + citySearch + "&appid=" + apiKey;
+    console.log(apiUrl);
 
+    fetch(apiUrl)
+        .then(function (response) {
+            if (response.ok) {
+                response.json().then(function (data) {
+                    console.log(data);
 
+                    // Set city name to header
+                    currentCityNameEl.textContent = data[0].name;
 
-//             })
-//         }
-//     })
-    
-// }
+                    lat = data[0].lat;
+                    lon = data[0].lon;
+                    console.log(lat);
+                    console.log(lon);
+                    getWeather();
+                })
+            }
+        })
+
+}
+
 
 
 
 geoCoordinates();
+
 
 // getWeatherData();
