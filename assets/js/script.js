@@ -39,7 +39,7 @@ var getWeather = function (lat, lon) {
                     currentTempEl.textContent = "Temperature: " + data.current.temp + " °F";
                     currentWindEl.textContent = "Wind: " + data.current.wind_speed + " MPH";
                     currentHumidityEl.textContent = "Humidity: " + data.current.humidity + "%";
-                    currentUvEl.textContent = data.current.uvi*100 + "%";
+                    currentUvEl.textContent = data.current.uvi;
                     fiveDayForecast();
                 });
             };
@@ -69,6 +69,10 @@ var fiveDayForecast = function(forecast) {
                     document.querySelector("#h3").textContent = data.daily[3].humidity;
                     document.querySelector("#h4").textContent = data.daily[4].humidity;
                     document.querySelector("#h5").textContent = data.daily[5].humidity;
+
+                    // Once results have loaded, show them on the page
+                    document.querySelector("#results").setAttribute("style", "display: block");
+
                 });
             };
         });
