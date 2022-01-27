@@ -1,0 +1,29 @@
+:root {
+    --primary-color: #5799bd;
+    --secondary-color: #2b4c5e;
+}
+
+.header {
+    background-color: var(--primary-color);
+    color: white;
+    padding: 20px;
+}
+
+.forecastday {
+    background-color: var(--secondary-color);
+    color: white;
+    margin: 10px;
+    padding: 5px;
+}
+
+.btn {
+    background-color: var(--primary-color);
+    color: white;
+}
+
+.today {
+    margin: 0px;
+    border-style: solid;
+    border-width: 2px;
+    border-color: var(--secondary-color);
+}
