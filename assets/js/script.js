@@ -9,6 +9,7 @@ var currentUvEl = document.querySelector("#currUv");
 var searchFormEl = document.querySelector("#searchform");
 var searchFieldEl = document.querySelector("#city");
 
+
 // Fetch latitude and longitude for the search term
 var geoCoordinates = function (city) {
     var apiUrl = "https://api.openweathermap.org/geo/1.0/direct?q=" + city + "&appid=" + apiKey;
@@ -36,10 +37,10 @@ var getWeather = function (lat, lon) {
         .then(function (response) {
             if (response.ok) {
                 response.json().then(function (data) {
+                    console.log(data);
                     currentTempEl.textContent = "Temperature: " + data.current.temp + " °F";
                     currentWindEl.textContent = "Wind: " + data.current.wind_speed + " MPH";
                     currentHumidityEl.textContent = "Humidity: " + data.current.humidity + "%";
-                    currentUvEl.textContent = data.current.uvi;
                     fiveDayForecast();
                 });
             };
@@ -52,6 +53,12 @@ var fiveDayForecast = function(forecast) {
         .then(function (response) {
             if (response.ok) {
                 response.json().then(function (data) {
+                    document.querySelector("#ico1").setAttribute('src', 'http://openweathermap.org/img/wn/' + data.daily[1].weather[0].icon + '@2x.png');
+                    document.querySelector("#ico2").setAttribute('src', 'http://openweathermap.org/img/wn/' + data.daily[2].weather[0].icon + '@2x.png');
+                    document.querySelector("#ico3").setAttribute('src', 'http://openweathermap.org/img/wn/' + data.daily[3].weather[0].icon + '@2x.png');
+                    document.querySelector("#ico4").setAttribute('src', 'http://openweathermap.org/img/wn/' + data.daily[4].weather[0].icon + '@2x.png');
+                    document.querySelector("#ico5").setAttribute('src', 'http://openweathermap.org/img/wn/' + data.daily[5].weather[0].icon + '@2x.png');
+
                     document.querySelector("#t1").textContent = data.daily[1].temp.day;
                     document.querySelector("#t2").textContent = data.daily[2].temp.day;
                     document.querySelector("#t3").textContent = data.daily[3].temp.day;
