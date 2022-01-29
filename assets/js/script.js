@@ -41,12 +41,14 @@ var getWeather = function (lat, lon) {
                     currentTempEl.textContent = "Temperature: " + data.current.temp + " °F";
                     currentWindEl.textContent = "Wind: " + data.current.wind_speed + " MPH";
                     currentHumidityEl.textContent = "Humidity: " + data.current.humidity + "%";
+                    currentUvEl.textContent = data.current.uvi;
                     fiveDayForecast();
                 });
             };
         });
 };
 
+// Populate five day array with weather data for each day
 var fiveDayForecast = function(forecast) {
     var apiUrl = "https://api.openweathermap.org/data/2.5/onecall?lat=" + lat + "&lon=" + lon + "&units=imperial" +  "&appid=" + apiKey;
     fetch(apiUrl)
