@@ -71,28 +71,12 @@ var fiveDayForecast = function (forecast) {
             if (response.ok) {
                 response.json().then(function (data) {
 
-                    // Load date for each box
+                    // Load date specific information to each box
                     for (var i = 1; i < 6; i++) {
                         document.querySelector(`#d${i}`).textContent = moment().add(i, 'days').format('M/D/YY');
-                    }
-                    
-                    // Load icon for each box
-                    for (var i = 1; i < 6; i++) {
                         document.querySelector(`#ico${i}`).setAttribute('src', `http://openweathermap.org/img/wn/${data.daily[i].weather[0].icon}@2x.png`);
-                    }
-                    
-                    // Load temperature for each box
-                    for (var i = 1; i < 6; i++) {
                         document.querySelector(`#t${i}`).textContent = data.daily[i].temp.day;
-                    }
-                    
-                    // Load wind speed for each box
-                    for (var i = 1; i < 6; i++) {
                         document.querySelector(`#w${i}`).textContent = data.daily[i].wind_speed;
-                    }
-                    
-                    // Load humidity for each box
-                    for (var i = 1; i < 6; i++) {
                         document.querySelector(`#h${i}`).textContent = data.daily[i].humidity;
                     }
 
