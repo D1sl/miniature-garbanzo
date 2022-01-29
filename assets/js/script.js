@@ -8,6 +8,31 @@ var currentWindEl = document.querySelector("#currWind");
 var currentUvEl = document.querySelector("#currUv");
 var searchFormEl = document.querySelector("#searchform");
 var searchFieldEl = document.querySelector("#city");
+var searchListEl = document.querySelector(".list-group");
+var searchHistoryContainer = document.querySelector(".searches");
+
+var cities = JSON.parse(localStorage.getItem('searchhistory')) || [];
+
+
+// Load searches from localStorage if any
+
+function loadHistory() {
+    
+    if (localStorage.getItem('searchhistory')) {
+        // Clear old content
+        searchListEl.textContent = "";
+
+        for (var i = 0; i < cities.length; i++) {
+            var listItemEl = document.createElement('li');
+            listItemEl.textContent = cities[i];
+            searchListEl.appendChild(listItemEl);
+        }
+    
+    } 
+
+}
+
+
 
 
 // Fetch latitude and longitude for the search term
@@ -21,7 +46,7 @@ var geoCoordinates = function (city) {
                 response.json().then(function (data) {
 
                     // Set city name to header
-                    currentCityNameEl.textContent = data[0].name;
+                    currentCityNameEl.textContent = data[0].name + " (" + moment().format('M/D/YY') + ')';
                     lat = data[0].lat;
                     lon = data[0].lon;
                     getWeather(lat, lon);
@@ -55,11 +80,14 @@ var fiveDayForecast = function(forecast) {
         .then(function (response) {
             if (response.ok) {
                 response.json().then(function (data) {
-                    document.querySelector("#ico1").setAttribute('src', 'http://openweathermap.org/img/wn/' + data.daily[1].weather[0].icon + '@2x.png');
-                    document.querySelector("#ico2").setAttribute('src', 'http://openweathermap.org/img/wn/' + data.daily[2].weather[0].icon + '@2x.png');
-                    document.querySelector("#ico3").setAttribute('src', 'http://openweathermap.org/img/wn/' + data.daily[3].weather[0].icon + '@2x.png');
-                    document.querySelector("#ico4").setAttribute('src', 'http://openweathermap.org/img/wn/' + data.daily[4].weather[0].icon + '@2x.png');
-                    document.querySelector("#ico5").setAttribute('src', 'http://openweathermap.org/img/wn/' + data.daily[5].weather[0].icon + '@2x.png');
+
+                    for (var i = 1; i<6; i++) {
+                        document.querySelector(`#d${i}`).textContent = moment().add(i, 'days').format('M/D/YY');
+                    }
+
+                    for (var i = 1; i<6; i++) {
+                        document.querySelector(`#ico${i}`).setAttribute('src', `http://openweathermap.org/img/wn/${data.daily[i].weather[0].icon}@2x.png`);
+                    }
 
                     document.querySelector("#t1").textContent = data.daily[1].temp.day;
                     document.querySelector("#t2").textContent = data.daily[2].temp.day;
@@ -91,11 +119,21 @@ var formSubmitHandler = function(event) {
     event.preventDefault();
     citySearch = searchFieldEl.value.trim();
     if (citySearch) {
+
+        // If statement - check if the value already exists in the array to avoid search history from repeating
+        if(!cities.includes(citySearch)) {
+            cities.push(citySearch)
+        }
+
+        localStorage.setItem('searchhistory', JSON.stringify(cities));
+
         geoCoordinates(citySearch);
+        loadHistory();
         searchFieldEl.value = "";
     } else {
         alert("Please enter a search term");
     };
 };
 
+loadHistory();
 searchFormEl.addEventListener("submit", formSubmitHandler);
