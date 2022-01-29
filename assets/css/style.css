@@ -7,6 +7,7 @@
     background-color: var(--primary-color);
     color: white;
     padding: 20px;
+    text-align: center;
 }
 
 .forecastday {
@@ -28,4 +29,8 @@
     border-style: solid;
     border-width: 2px;
     border-color: var(--secondary-color);
+}
+
+.list-group-item {
+    text-align: left;
 }

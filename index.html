@@ -17,26 +17,31 @@
     <div class="container content">
         <div class="row">
             <div class="p-3 col-md-3 col-sm-12">
-                <h3 class="mt-2">Search for a City</h3>
-                <form action="submit" id="searchform">
-                    <div class="row mb-3">
-                        <input type="text" class="form-control" id="city">
+                <div class="row">
+                    <h3 class="mt-2">Search for a City</h3>
+                    <form action="submit" id="searchform">
+                        <div class="row mb-3">
+                            <input type="text" class="form-control" id="city">
+                        </div>
+                        <div class="row">
+                            <button type="submit" class="btn btn-lg btn-block">Search</button>
+                        </div>
+                    </form>
+                </div>
+
+                <div class="row mt-3">
+                    <div class="list-group">
+                        <!-- Load search history here -->
                     </div>
-                    <div class="row">
-                        <button type="submit" class="btn btn-lg btn-block">Search</button>
-                    </div>
-                </form>
-                <div class="searches">
-                    <ul class="list-group">
-                        <li class="list-group-item">Search history 1</li>
-                        <li class="list-group-item">Search history 2</li>
-                        <li class="list-group-item">Search history 3</li>
-                    </ul>
+                </div>
+
+                <div class="searches row mt-3 mr-0">
+
                 </div>
             </div>
             <div class="p-3 col-md-9 col-sm-12" id="results" style="display: none">
                 <div class="row mt-2 today">
-                    <h3 id="cityname"></h3> 
+                    <h3 id="cityname"></h3>
                     <p id="currTemp"></p>
                     <p id="currWind"></p>
                     <p id="currHumidity"></p>
@@ -75,7 +80,7 @@
                         <p>Humidity: <span id="h4"></span>%</p>
                     </div>
                     <div class="m-2 col-lg col-sm-12  forecastday">
-                    <h5 id="d5">Day 1</h5>
+                        <h5 id="d5">Day 1</h5>
                         <img src="" class="wicon" id="ico5">
                         <p>Temperature: <span id="t5"></span> °F</p>
                         <p>Wind: <span id="w5"></span> MPH</p>
